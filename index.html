@@ -9,22 +9,22 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f9;
-        color: #333;
+        background-color: #000;
+        color: #d4af37;
       }
       header {
-        background-color: #6200ea;
-        color: #fff;
+        background-color: #333;
+        color: #d4af37;
         text-align: center;
         padding: 1rem 0;
       }
       .container {
         max-width: 600px;
         margin: 2rem auto;
-        background: #fff;
+        background: #1a1a1a;
         padding: 2rem;
         border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(255, 215, 0, 0.3);
       }
       label {
         display: block;
@@ -35,12 +35,14 @@
         width: 100%;
         padding: 0.5rem;
         margin-bottom: 1rem;
-        border: 1px solid #ccc;
+        border: 1px solid #4fac9f;
         border-radius: 5px;
+        background-color: #000;
+        color: #4fac9f;
       }
       button {
-        background-color: #6200ea;
-        color: #fff;
+        background-color: #4fac9f;
+        color: #000;
         padding: 0.7rem 1.5rem;
         border: none;
         border-radius: 5px;
@@ -48,13 +50,13 @@
         font-size: 1rem;
       }
       button:hover {
-        background-color: #3700b3;
+        background-color: #ffc107;
       }
       .result {
         margin-top: 2rem;
         padding: 1rem;
-        background: #e3f2fd;
-        border-left: 5px solid #6200ea;
+        background: #333;
+        border-left: 5px solid #4fac9f;
         border-radius: 5px;
       }
       table {
@@ -64,13 +66,13 @@
       }
       th,
       td {
-        border: 1px solid #ccc;
+        border: 1px solid #4fac9f;
         padding: 0.5rem;
         text-align: center;
       }
       th {
-        background-color: #6200ea;
-        color: #fff;
+        background-color: #444;
+        color: #4fac9f;
       }
     </style>
   </head>
@@ -109,14 +111,11 @@
         const daysMissed = yearsMissed * 365;
         const totalQaza = daysMissed * 5;
 
-        const dailyTarget = Math.ceil(totalQaza / daysInRamzan);
+        const dailyTarget = Math.ceil(totalQaza / 30);
         const dailyTargetPerPrayer = Math.ceil(dailyTarget / 5);
 
-        const ramzanMultiplier = 70;
-        const extraPerPrayer = Math.ceil(
-          totalQaza / (daysInRamzan * ramzanMultiplier * 5)
-        );
-        const rewardedQazaPerPrayer = extraPerPrayer * ramzanMultiplier;
+        const extraPerPrayer = Math.ceil(totalQaza / (daysInRamzan * 70 * 5));
+        const rewardedQazaPerPrayer = extraPerPrayer * 70;
         const totalRewardedPerPrayer = rewardedQazaPerPrayer * daysInRamzan;
 
         const resultDiv = document.getElementById("result");
@@ -124,15 +123,15 @@
                 <p><strong>Total Years Missed:</strong> ${yearsMissed} years</p>
                 <p><strong>Total Days Missed:</strong> ${daysMissed} days</p>
                 <p><strong>Total Qaza Salah (All 5 Prayers):</strong> ${totalQaza}</p>
-                <p><strong>Daily Target to Complete in ${daysInRamzan} Days:</strong> ${dailyTarget} Salah/day</p>
+                <p><strong>Daily Target to Complete in 30 Days:</strong> ${dailyTarget} Salah/day</p>
                 <p><strong>Daily Target for Each Prayer:</strong> ${dailyTargetPerPrayer} per prayer time</p>
-
+                <p><strong>We can cover our Qaza Salah in 30 days if we pray extra in Ramadan, utilizing the multiplied rewards.</strong></p>
+                
                 <table>
                     <thead>
                         <tr>
                             <th>Prayer</th>
-                            <th>Qaza to Pray Daily</th>
-                            <th>Extra to Pray in Ramadan</th>
+                            <th>Qaza to Pray in Ramadan</th>
                             <th>Reward (70x)</th>
                             <th>Total Rewarded in Ramadan</th>
                         </tr>
@@ -140,38 +139,33 @@
                     <tbody>
                         <tr>
                             <td>Fajr</td>
-                            <td>${dailyTargetPerPrayer}</td>
-                            <td>${extraPerPrayer}</td>
-                            <td>${rewardedQazaPerPrayer}</td>
-                            <td>${totalRewardedPerPrayer}</td>
+                            <td>${extraPerPrayer} Qaza Namaz</td>
+                            <td>${rewardedQazaPerPrayer} Qaza Namaz</td>
+                            <td>${totalRewardedPerPrayer} Qaza Namaz</td>
                         </tr>
                         <tr>
                             <td>Zuhr</td>
-                            <td>${dailyTargetPerPrayer}</td>
-                            <td>${extraPerPrayer}</td>
-                            <td>${rewardedQazaPerPrayer}</td>
-                            <td>${totalRewardedPerPrayer}</td>
+                            <td>${extraPerPrayer} Qaza Namaz</td>
+                            <td>${rewardedQazaPerPrayer} Qaza Namaz</td>
+                            <td>${totalRewardedPerPrayer} Qaza Namaz</td>
                         </tr>
                         <tr>
                             <td>Asr</td>
-                            <td>${dailyTargetPerPrayer}</td>
-                            <td>${extraPerPrayer}</td>
-                            <td>${rewardedQazaPerPrayer}</td>
-                            <td>${totalRewardedPerPrayer}</td>
+                            <td>${extraPerPrayer} Qaza Namaz</td>
+                            <td>${rewardedQazaPerPrayer} Qaza Namaz</td>
+                            <td>${totalRewardedPerPrayer} Qaza Namaz</td>
                         </tr>
                         <tr>
                             <td>Maghrib</td>
-                            <td>${dailyTargetPerPrayer}</td>
-                            <td>${extraPerPrayer}</td>
-                            <td>${rewardedQazaPerPrayer}</td>
-                            <td>${totalRewardedPerPrayer}</td>
+                            <td>${extraPerPrayer} Qaza Namaz</td>
+                            <td>${rewardedQazaPerPrayer} Qaza Namaz</td>
+                            <td>${totalRewardedPerPrayer} Qaza Namaz</td>
                         </tr>
                         <tr>
                             <td>Isha</td>
-                            <td>${dailyTargetPerPrayer}</td>
-                            <td>${extraPerPrayer}</td>
-                            <td>${rewardedQazaPerPrayer}</td>
-                            <td>${totalRewardedPerPrayer}</td>
+                            <td>${extraPerPrayer} Qaza Namaz</td>
+                            <td>${rewardedQazaPerPrayer} Qaza Namaz</td>
+                            <td>${totalRewardedPerPrayer} Qaza Namaz</td>
                         </tr>
                     </tbody>
                 </table>
