@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Qaza Salah Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      header {
+        background-color: #6200ea;
+        color: #fff;
+        text-align: center;
+        padding: 1rem 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 2rem auto;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+      input[type="number"] {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      button {
+        background-color: #6200ea;
+        color: #fff;
+        padding: 0.7rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      button:hover {
+        background-color: #3700b3;
+      }
+      .result {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #e3f2fd;
+        border-left: 5px solid #6200ea;
+        border-radius: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: center;
+      }
+      th {
+        background-color: #6200ea;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Dynamic Qaza Salah Calculator</h1>
+    </header>
+    <div class="container">
+      <label for="currentAge">Enter Your Current Age:</label>
+      <input type="number" id="currentAge" placeholder="e.g., 25" required />
+
+      <label for="startingAge">Age When Salah Became Obligatory:</label>
+      <input type="number" id="startingAge" value="10" readonly />
+
+      <button onclick="calculateQaza()">Calculate Qaza Salah</button>
+
+      <div id="result" class="result" style="display: none"></div>
+    </div>
+
+    <script>
+      function calculateQaza() {
+        const currentAge = parseInt(
+          document.getElementById("currentAge").value
+        );
+        const startingAge = parseInt(
+          document.getElementById("startingAge").value
+        );
+        const daysInRamzan = 30;
+
+        if (!currentAge || currentAge <= startingAge) {
+          alert("Please enter a valid age greater than the starting age.");
+          return;
+        }
+
+        const yearsMissed = currentAge - startingAge;
+        const daysMissed = yearsMissed * 365;
+        const totalQaza = daysMissed * 5;
+
+        const dailyTarget = Math.ceil(totalQaza / daysInRamzan);
+        const dailyTargetPerPrayer = Math.ceil(dailyTarget / 5);
+
+        const ramzanMultiplier = 70;
+        const extraPerPrayer = Math.ceil(
+          totalQaza / (daysInRamzan * ramzanMultiplier * 5)
+        );
+        const rewardedQazaPerPrayer = extraPerPrayer * ramzanMultiplier;
+        const totalRewardedPerPrayer = rewardedQazaPerPrayer * daysInRamzan;
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `
+                <p><strong>Total Years Missed:</strong> ${yearsMissed} years</p>
+                <p><strong>Total Days Missed:</strong> ${daysMissed} days</p>
+                <p><strong>Total Qaza Salah (All 5 Prayers):</strong> ${totalQaza}</p>
+                <p><strong>Daily Target to Complete in ${daysInRamzan} Days:</strong> ${dailyTarget} Salah/day</p>
+                <p><strong>Daily Target for Each Prayer:</strong> ${dailyTargetPerPrayer} per prayer time</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prayer</th>
+                            <th>Qaza to Pray Daily</th>
+                            <th>Extra to Pray in Ramadan</th>
+                            <th>Reward (70x)</th>
+                            <th>Total Rewarded in Ramadan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fajr</td>
+                            <td>${dailyTargetPerPrayer}</td>
+                            <td>${extraPerPrayer}</td>
+                            <td>${rewardedQazaPerPrayer}</td>
+                            <td>${totalRewardedPerPrayer}</td>
+                        </tr>
+                        <tr>
+                            <td>Zuhr</td>
+                            <td>${dailyTargetPerPrayer}</td>
+                            <td>${extraPerPrayer}</td>
+                            <td>${rewardedQazaPerPrayer}</td>
+                            <td>${totalRewardedPerPrayer}</td>
+                        </tr>
+                        <tr>
+                            <td>Asr</td>
+                            <td>${dailyTargetPerPrayer}</td>
+                            <td>${extraPerPrayer}</td>
+                            <td>${rewardedQazaPerPrayer}</td>
+                            <td>${totalRewardedPerPrayer}</td>
+                        </tr>
+                        <tr>
+                            <td>Maghrib</td>
+                            <td>${dailyTargetPerPrayer}</td>
+                            <td>${extraPerPrayer}</td>
+                            <td>${rewardedQazaPerPrayer}</td>
+                            <td>${totalRewardedPerPrayer}</td>
+                        </tr>
+                        <tr>
+                            <td>Isha</td>
+                            <td>${dailyTargetPerPrayer}</td>
+                            <td>${extraPerPrayer}</td>
+                            <td>${rewardedQazaPerPrayer}</td>
+                            <td>${totalRewardedPerPrayer}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        resultDiv.style.display = "block";
+      }
+    </script>
+  </body>
+</html>
